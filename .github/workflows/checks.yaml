@@ -17,6 +17,10 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       net_tag: ${{ steps.tag_version.outputs.new_tag }}
+    permissions:
+      issues: write
+      pull-requests: write
+      contents: write
     steps:
       - uses: actions/checkout@v2
       - name: Bump version and push tag
