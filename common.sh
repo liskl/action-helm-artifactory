@@ -71,7 +71,7 @@ helm_lint(){
 
 helm_package(){
     print_title "Packaging"
-    helm package "${CHART_DIR}" --version v"${CHART_VERSION}" --app-version "${CHART_VERSION}" --destination "${RUNNER_WORKSPACE}"
+    helm package "${CHART_DIR}" --version v"${CHART_VERSION}" --app-version "${CHART_VERSION:1}" --destination "${RUNNER_WORKSPACE}"
 }
 
 helm_push(){
