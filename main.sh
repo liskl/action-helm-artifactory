@@ -11,6 +11,7 @@ source "$SCRIPT_DIR/common.sh"
 install_helm
 install_artifactory_plugin
 fix_chart_version
+fix_app_version
 
 case "${ACTION}" in
     "check")
