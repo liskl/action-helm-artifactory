@@ -33,6 +33,8 @@ CHART_VERSION: # Overide helm chart version when pushing
 HELM_VERSION: # Override helm version. Default "3.5.1"
 HELM_ARTIFACTORY_PLUGIN_VERSION: # Override helm artifactory plugin version. Default "v1.0.2"
 CHART_VERSION: # if defined override version in Chart.yaml. Default is unset
+APP_VERSION: # if defined override version in Chart.yaml. Default is unset
+
 ```
 
 ## Example workflow
