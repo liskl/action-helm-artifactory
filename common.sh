@@ -4,13 +4,13 @@ set -eo pipefail
 export HELM_VERSION=${HELM_VERSION:="3.5.1"}
 export HELM_ARTIFACTORY_PLUGIN_VERSION=${HELM_ARTIFACTORY_PLUGIN_VERSION:="v1.0.2"}
 export CHART_VERSION=${CHART_VERSION:-}
+export APP_VERSION=${APP_VERSION:-}
 
 print_title(){
     echo "#####################################################"
     echo "$1"
     echo "#####################################################"
 }
-
 
 fix_chart_version(){
     if [[ -z "$CHART_VERSION" ]]; then
@@ -27,6 +27,24 @@ fix_chart_version(){
             CHART_VERSION="${CANDIDATE_VERSION}"
         fi
         export CHART_VERSION
+    fi
+}
+
+fix_app_version(){
+    if [[ -z "$APP_VERSION" ]]; then
+        print_title "Calculating app version"
+        echo "Installing prerequisites"
+        pip3 install PyYAML
+        pushd "$CHART_DIR"
+        CANDIDATE_VERSION=$(python3 -c "import yaml; f=open('Chart.yaml','r');  p=yaml.safe_load(f.read()); print(p['appVersion']); f.close()" )
+        popd
+        echo "${GITHUB_EVENT_NAME}"
+        if [ "${GITHUB_EVENT_NAME}" == "pull_request" ]; then
+            APP_VERSION="${CANDIDATE_VERSION}-$(git rev-parse --short "$GITHUB_SHA")"
+        else
+            APP_VERSION="${CANDIDATE_VERSION}"
+        fi
+        export APP_VERSION
     fi
 }
 
