@@ -89,7 +89,7 @@ helm_lint(){
 
 helm_package(){
     print_title "Packaging"
-    echo "helm package \"${CHART_DIR}\" --version \"${CHART_VERSION}\" --app-version \"${CHART_VERSION:1}\" --destination \"${RUNNER_WORKSPACE}\""
+    echo "helm package \"${CHART_DIR}\" --version \"${CHART_VERSION}\" --app-version \"${APP_VERSION}\" --destination \"${RUNNER_WORKSPACE}\""
     helm package "${CHART_DIR}" --version "${CHART_VERSION}" --app-version "${APP_VERSION}" --destination "${RUNNER_WORKSPACE}"
 }
 
